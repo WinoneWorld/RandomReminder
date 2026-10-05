@@ -327,7 +327,7 @@ function saveSettings() {
   settings.cycles = clampInput($('#cycles'), 1, 12);
   settings.microEnabled = $('#microToggle').getAttribute('aria-checked') === 'true';
   settings.longEnabled = $('#longToggle').getAttribute('aria-checked') === 'true';
-  settings.adaptiveEnabled = $('#adaptiveToggle').getAttribute('aria-checked') === 'true';
+  settings.adaptiveEnabled = $('#adaptiveToggle').checked;
   localStorage.setItem('sessionSettings', JSON.stringify(settings));
   if (state === 'idle' || state === 'done') setTimer(focusMs(), focusMs());
   syncControls();
@@ -360,8 +360,7 @@ function initialize() {
   $('#microToggle').classList.toggle('is-on', settings.microEnabled);
   $('#longToggle').setAttribute('aria-checked', String(settings.longEnabled));
   $('#longToggle').classList.toggle('is-on', settings.longEnabled);
-  $('#adaptiveToggle').setAttribute('aria-checked', String(settings.adaptiveEnabled));
-  $('#adaptiveToggle').classList.toggle('is-on', settings.adaptiveEnabled);
+  $('#adaptiveToggle').checked = settings.adaptiveEnabled;
   sounds = { ...SOUND_DEFAULTS, ...readStored('phaseSounds', {}) };
   SOUND_IDS.forEach((id) => {
     const select = document.getElementById(id);
@@ -379,7 +378,7 @@ function initialize() {
   $('#stopButton').addEventListener('click', stopSession);
   $('#microToggle').addEventListener('click', (event) => setToggle(event.currentTarget));
   $('#longToggle').addEventListener('click', (event) => setToggle(event.currentTarget));
-  $('#adaptiveToggle').addEventListener('click', (event) => setToggle(event.currentTarget));
+  $('#adaptiveToggle').addEventListener('change', saveSettings);
   ['focusMinutes', 'microSeconds', 'longBreakMinutes', 'cycles'].forEach((id) => {
     document.getElementById(id).addEventListener('change', saveSettings);
     document.getElementById(id).addEventListener('keydown', (event) => {
