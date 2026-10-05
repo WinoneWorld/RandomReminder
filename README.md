@@ -1,6 +1,6 @@
 # 间歇 · 专注节奏
 
-一个轻量、响应式的随机提示音专注工具。无需安装依赖，直接在浏览器中打开 `index.html` 即可使用。
+一个轻量、响应式的随机提示音专注工具。无需安装依赖，直接在浏览器中打开 `[index.html](https://winoneworld.github.io/RandomReminder/)` 即可使用。
 
 ## 功能
 
